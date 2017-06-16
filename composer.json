@@ -1,6 +1,6 @@
 {
     "name": "samius/datetime",
-    "description": "Enhanced version of PHP DateTime class"
+    "description": "Enhanced version of PHP DateTime class",
     "require": {
         "php": ">=5.3.0"
     },
