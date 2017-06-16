@@ -1,0 +1,9 @@
+{
+    "name": "samius/datetime",
+    "minimum-stability" : "dev",
+    "autoload": {
+        "psr-0": {
+            "Samius": "src/"
+        }
+    }
+}
