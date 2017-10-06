@@ -7,7 +7,7 @@ namespace Samius;
 class DateTime extends \DateTime
 {
     /**
-     * @var \Samius\DateTime
+     * @var DateTime
      */
     private static $now;
 
@@ -25,6 +25,10 @@ class DateTime extends \DateTime
 
     // 1983-02-25 12:45:42
     const DB_FULL = 'Y-m-d H:i:s';
+
+    //198302
+    const YEARMONTH = 'Ym';
+
     const PART_SECOND = 'second',
           PART_MINUTE = 'minute',
           PART_HOUR   = 'hour',
@@ -456,6 +460,14 @@ class DateTime extends \DateTime
         return $this->format(self::HUMAN_DATE);
     }
 
+    /**
+     * @return string
+     */
+    public function getYearmonth()
+    {
+        return $this->format(self::YEARMONTH);
+    }
+    
     /**
      * Vraci cislo predchoziho dne
      * @param $dayNum
