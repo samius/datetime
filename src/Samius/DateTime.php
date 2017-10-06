@@ -7,7 +7,7 @@ namespace Samius;
 class DateTime extends \DateTime
 {
     /**
-     * @var Samius\DateTime
+     * @var \Samius\DateTime
      */
     private static $now;
 
@@ -49,7 +49,7 @@ class DateTime extends \DateTime
 
     /**
      * @param \Zend_Date $zendDate
-     * @return \Gdi\DateTime
+     * @return \Samius\DateTime
      */
     public static function fromZendDate(\Zend_Date $zendDate)
     {
