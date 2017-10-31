@@ -330,6 +330,18 @@ class DateTime extends \DateTime
     }
 
     /**
+     * At 2017-31-10, when we call createFromFormat('Ym','201709'), it will return '2017-10-01'.
+     * We do not set day, so actual day is set. As september has only 30 days (and today is 31. day), one day is added, so
+     * it goes into october.
+     * @param $yearmonth
+     * @return DateTime
+     */
+    public static function createFromYearmonth($yearmonth)
+    {
+        return self::createFromFormat('!' . self::YEARMONTH, $yearmonth);
+    }
+
+    /**
      * @return bool
      */
     public function isWeekend()
