@@ -123,6 +123,25 @@ class DateTime extends \DateTime
     }
 
     /**
+     * Returns date 1970-01-01 00:00:00
+     * @return static
+     */
+    public static function createNullDate()
+    {
+        return (new self())->setTimestamp(0);
+    }
+
+    /**
+     * If timestamp == 0, return true.
+     * Else return false
+     * @return bool
+     */
+    public function isNullDate()
+    {
+        return $this->getTimestamp() == 0;
+    }
+
+    /**
      * @param $minuteInDay
      * @return DateTime
      */
