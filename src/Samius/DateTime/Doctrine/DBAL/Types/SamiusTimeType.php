@@ -1,5 +1,5 @@
 <?php
-namespace Samius\Doctrine\DBAL\Types;
+namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Samius\DateTime;

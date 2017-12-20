@@ -150,12 +150,26 @@ class Interval
         return $this->end;
     }
 
+    /**
+     * @return int
+     */
     public function getLengthInDays()
     {
         if ($this->start === null || $this->end === null) {
             return null;
         }
         return $this->getStart()->diff($this->getEnd())->days;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLenghtInSeconds()
+    {
+        if ($this->start === null || $this->end === null) {
+            return null;
+        }
+        return self::getLengthInDays($this->start, $this->end);
     }
 
     /**
@@ -169,10 +183,20 @@ class Interval
     }
 
     /**
+     * @param \DateTime $start
+     * @param \Datetime $end
+     * @return int
+     */
+    public static function lengthInSeconds(\DateTime $start, \Datetime $end)
+    {
+        return $end->getTimestamp() - $start->getTimestamp();
+    }
+
+    /**
      * @return bool
      */
     public function isOpen()
     {
-        return ! isset($this->start) || ! isset($this->end);
+        return !isset($this->start) || !isset($this->end);
     }
 }
