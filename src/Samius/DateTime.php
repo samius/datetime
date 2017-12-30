@@ -11,14 +11,14 @@ class DateTime extends \DateTime
      */
     private static $now;
 
-    // 25.2.1983
-    const HUMAN_FULL = 'j.n.Y G:i:s';
+    // 25. 2. 1983
+    const HUMAN_FULL = 'j. n. Y G:i:s';
 
-    //12.45
+    //12:45
     const HUMAN_TIME = 'G:i';
 
-    // 25.2.1983
-    const HUMAN_DATE = 'j.n.Y';
+    // 25. 2. 1983
+    const HUMAN_DATE = 'j. n. Y';
 
     // 1983-02-25
     const DB_DATE = 'Y-m-d';
