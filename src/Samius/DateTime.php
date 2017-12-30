@@ -7,24 +7,28 @@ namespace Samius;
 class DateTime extends \DateTime
 {
     /**
-     * @var Samius\DateTime
+     * @var DateTime
      */
     private static $now;
 
-    // 25.2.1983
-    const HUMAN_FULL = 'j.n.Y G:i:s';
+    // 25. 2. 1983
+    const HUMAN_FULL = 'j. n. Y G:i:s';
 
-    //12.45
+    //12:45
     const HUMAN_TIME = 'G:i';
 
-    // 25.2.1983
-    const HUMAN_DATE = 'j.n.Y';
+    // 25. 2. 1983
+    const HUMAN_DATE = 'j. n. Y';
 
     // 1983-02-25
     const DB_DATE = 'Y-m-d';
 
     // 1983-02-25 12:45:42
     const DB_FULL = 'Y-m-d H:i:s';
+
+    //198302
+    const YEARMONTH = 'Ym';
+
     const PART_SECOND = 'second',
           PART_MINUTE = 'minute',
           PART_HOUR   = 'hour',
@@ -49,7 +53,7 @@ class DateTime extends \DateTime
 
     /**
      * @param \Zend_Date $zendDate
-     * @return \Gdi\DateTime
+     * @return \Samius\DateTime
      */
     public static function fromZendDate(\Zend_Date $zendDate)
     {
@@ -116,6 +120,25 @@ class DateTime extends \DateTime
             return clone(self::$now);
         }
         return new self;
+    }
+
+    /**
+     * Returns date 1970-01-01 00:00:00
+     * @return static
+     */
+    public static function createNullDate()
+    {
+        return (new self())->setTimestamp(0);
+    }
+
+    /**
+     * If timestamp == 0, return true.
+     * Else return false
+     * @return bool
+     */
+    public function isNullDate()
+    {
+        return $this->getTimestamp() == 0;
     }
 
     /**
@@ -326,6 +349,18 @@ class DateTime extends \DateTime
     }
 
     /**
+     * At 2017-31-10, when we call createFromFormat('Ym','201709'), it will return '2017-10-01'.
+     * We do not set day, so actual day is set. As september has only 30 days (and today is 31. day), one day is added, so
+     * it goes into october.
+     * @param $yearmonth
+     * @return DateTime
+     */
+    public static function createFromYearmonth($yearmonth)
+    {
+        return self::createFromFormat('!' . self::YEARMONTH, $yearmonth);
+    }
+
+    /**
      * @return bool
      */
     public function isWeekend()
@@ -456,6 +491,14 @@ class DateTime extends \DateTime
         return $this->format(self::HUMAN_DATE);
     }
 
+    /**
+     * @return string
+     */
+    public function getYearmonth()
+    {
+        return $this->format(self::YEARMONTH);
+    }
+    
     /**
      * Vraci cislo predchoziho dne
      * @param $dayNum
