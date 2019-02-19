@@ -512,4 +512,23 @@ class DateTime extends \DateTime
             return $dayNum - 1;
         }
     }
+
+    /**
+     * Checks string whether it can be a yearmonth (e.g.201901)
+     * @param $yearmonth
+     * @return bool
+     */
+    public static function isYearmonth($yearmonth)
+    {
+        $yearmonthString = (string)$yearmonth;
+        if (!preg_match('#\d{6}#', $yearmonthString)) {
+            return false;
+        }
+        $month = substr($yearmonthString, 4);
+        if (strlen($month) != 2 || (int)$month > 12 || (int)$month < 1) {
+            return false;
+        }
+
+        return true;
+    }
 }
