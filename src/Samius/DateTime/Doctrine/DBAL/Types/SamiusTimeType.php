@@ -8,7 +8,7 @@ class SamiusTimeType extends Types\TimeType
 {
     public function getName()
     {
-        return 'timeext';
+        return 'time';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
