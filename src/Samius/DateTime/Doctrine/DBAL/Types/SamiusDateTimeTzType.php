@@ -8,7 +8,7 @@ class SamiusDateTimeTzType extends Types\DateTimeTzType
 {
     public function getName()
     {
-        return 'datetimetzext';
+        return 'datetimetz';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
