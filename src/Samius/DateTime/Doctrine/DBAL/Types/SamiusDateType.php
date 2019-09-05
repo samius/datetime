@@ -8,7 +8,7 @@ class SamiusDateType extends Types\DateType
 {
     public function getName()
     {
-        return 'dateext';
+        return 'date';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
