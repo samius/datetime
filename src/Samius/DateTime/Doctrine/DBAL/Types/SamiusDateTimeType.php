@@ -23,4 +23,9 @@ class SamiusDateTimeType extends Types\DateTimeType
         }
         return $val;
     }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return false;
+    }
 }
