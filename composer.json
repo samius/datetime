@@ -5,7 +5,7 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "version": "1.0.8",
+    "version": "1.0.9   ",
     "minimum-stability" : "stable",
     "autoload": {
         "psr-0": {
