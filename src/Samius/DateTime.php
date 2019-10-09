@@ -234,6 +234,10 @@ class DateTime extends \DateTime
      */
     public function subPart($number, $part)
     {
+        if ($number < 0) {
+            return $this->addPart(abs($number), $part);
+        }
+
         $interval = new \DateInterval($this->getIntervalString($number, $part));
 
         return $this->sub($interval);
@@ -246,6 +250,9 @@ class DateTime extends \DateTime
      */
     public function addPart($number, $part)
     {
+        if ($number < 0) {
+            return $this->subPart(abs($number), $part);
+        }
         $interval = new \DateInterval($this->getIntervalString($number, $part));
 
         return $this->add($interval);
