@@ -169,7 +169,7 @@ class Interval
         if ($this->start === null || $this->end === null) {
             return null;
         }
-        return self::getLengthInDays($this->start, $this->end);
+        return self::lengthInSeconds($this->start, $this->end);
     }
 
     /**
@@ -190,6 +190,16 @@ class Interval
     public static function lengthInSeconds(\DateTime $start, \Datetime $end)
     {
         return $end->getTimestamp() - $start->getTimestamp();
+    }
+
+    /**
+     * @param \DateTime $start
+     * @param \Datetime $end
+     * @return int
+     */
+    public static function lengthInMilis(\DateTime $start, \Datetime $end)
+    {
+        return (int) (1000 * self::lengthInSeconds($start, $end));
     }
 
     /**
