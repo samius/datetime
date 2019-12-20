@@ -546,4 +546,72 @@ class DateTime extends \DateTime
     {
         return clone($this);
     }
+
+    /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addSeconds($number)
+      {
+          return $this->addPart($number, self::PART_SECOND);
+      }
+
+      /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addMins($number)
+      {
+          return $this->addPart($number, self::PART_MINUTE);
+      }
+
+      /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addHours($number)
+      {
+          return $this->addPart($number, self::PART_HOUR);
+      }
+
+      /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addDays($number)
+      {
+          return $this->addPart($number, self::PART_DAY);
+      }
+      /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addWeeks($number)
+      {
+          return $this->addPart($number, self::PART_WEEK);
+      }
+
+      /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addMonths($number)
+      {
+          return $this->addPart($number, self::PART_MONTH);
+      }
+      /**
+       * Shortcut function for addPart
+       * @param $number
+       * @return DateTime
+       */
+      public function addYears($number)
+      {
+          return $this->addPart($number, self::PART_YEAR);
+      }
 }
