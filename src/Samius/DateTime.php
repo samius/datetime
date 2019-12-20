@@ -538,4 +538,12 @@ class DateTime extends \DateTime
 
         return true;
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getClone()
+    {
+        return clone($this);
+    }
 }
