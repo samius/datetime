@@ -4,7 +4,7 @@ namespace Samius;
 /**
  * @author samius
  */
-class DateTime extends \DateTime
+class DateTime extends \DateTime implements DateTimeInterface
 {
     /**
      * @var DateTime
@@ -52,29 +52,20 @@ class DateTime extends \DateTime
     }
 
     /**
-     * @param \Zend_Date $zendDate
-     * @return \Samius\DateTime
-     */
-    public static function fromZendDate(\Zend_Date $zendDate)
-    {
-        return new self($zendDate->toString(\j3_Date::DB_FULL));
-    }
-
-    /**
      * @static
      * @param string $timeFromDb Cas v databazovem formatu.
      * @return DateTime
      */
-    public static function fromDb($timeFromDb)
+    public static function fromDb(string $timeFromDb): DateTimeInterface
     {
         return self::createFromFormat(self::getDbFormat($timeFromDb), $timeFromDb);
     }
 
     /**
-     * @param \DateTime $dateTime
+     * @param DateTimeInterface $dateTime
      * @return DateTime
      */
-    public static function fromDateTime(\DateTime $dateTime)
+    public static function fromDateTime(DateTimeInterface $dateTime)
     {
         return new self($dateTime->format(self::DB_FULL));
     }
@@ -614,4 +605,6 @@ class DateTime extends \DateTime
       {
           return $this->addPart($number, self::PART_YEAR);
       }
+
+
 }
