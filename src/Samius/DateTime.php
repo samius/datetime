@@ -62,10 +62,10 @@ class DateTime extends \DateTime implements DateTimeInterface
     }
 
     /**
-     * @param DateTimeInterface $dateTime
+     * @param \DateTimeInterface $dateTime
      * @return DateTime
      */
-    public static function fromDateTime(DateTimeInterface $dateTime)
+    public static function fromDateTime(\DateTimeInterface $dateTime)
     {
         return new self($dateTime->format(self::DB_FULL));
     }
