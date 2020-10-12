@@ -1,10 +1,10 @@
 <?php
 namespace Samius\DateTime\Doctrine\DBAL\Types;
+use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Samius\DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use function date_create_immutable;
 
-class SamiusDateTimeImmutableType extends Types\DateTimeImmutableType
+class SamiusDateTimeImmutableType extends DateTimeImmutableType
 {
     /**
      * {@inheritdoc}
