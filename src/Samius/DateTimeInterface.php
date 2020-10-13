@@ -23,6 +23,8 @@ interface DateTimeInterface extends \DateTimeInterface
         PART_YEAR = 'year';
 
 
+    public static function now(): DateTimeInterface;
+
     public static function fromDb(string $dbString): DateTimeInterface;
 
     public static function fromDateTime(\DateTimeInterface $dateTime): DateTimeInterface;
@@ -32,8 +34,6 @@ interface DateTimeInterface extends \DateTimeInterface
     public static function fromTimestamp($timestamp): DateTimeInterface;
 
     public static function createNullDate(): DateTimeInterface;
-
-    public static function createFromFormat($format, $time, $tz = null): ?DateTimeInterface;
 
     public static function createFromYearmonth($yearmonth): DateTimeInterface;
 

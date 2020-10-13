@@ -13,8 +13,18 @@ class DateTimeImmutable extends \DateTimeImmutable implements DateTimeInterface
     use ModifierTrait;
     use FactoryTrait;
 
-    public static function now()
+    public function __construct($time = "now", $timezone = NULL)
     {
-        return new static();
+        if (DateTime::hasTestNow()) {
+            $mutable = DateTime::now();
+            parent::__construct($mutable->format(self::DB_FULL_MICRO), $mutable->getTimezone());
+        } else {
+            if ($timezone) {
+                parent::__construct($time, $timezone);
+            } else {
+                parent::__construct($time);
+            }
+
+        }
     }
 }
