@@ -22,8 +22,8 @@ class DateTime extends \DateTime implements DateTimeInterface
     public function  __construct($time = null, \DateTimeZone $tz = null)
     {
         if (!$time && self::$now) {
-            $time = self::now()->format(self::DB_FULL);
-            $tz = self::now()->getTimezone();
+            $time = self::$now->format(self::DB_FULL);
+            $tz = self::$now->getTimezone();
         }
 
         if ($tz) {
@@ -33,18 +33,6 @@ class DateTime extends \DateTime implements DateTimeInterface
         }
     }
 
-    /**
-     * Zkratka, aby slo s datem pracovat v jedom prikazu a nemuselo se preukladat do promenne apod.
-     * @static
-     * @return DateTime
-     */
-    public static function now()
-    {
-        if (isset (self::$now)) {
-            return clone(self::$now);
-        }
-        return new static();
-    }
 
     /**
      * @param DateTime|null $now
@@ -56,6 +44,11 @@ class DateTime extends \DateTime implements DateTimeInterface
         } else {
             self::$now = $now;
         }
+    }
+
+    public static function hasTestNow():bool
+    {
+        return self::$now !== null;
     }
 
 }

@@ -8,6 +8,15 @@ Trait FactoryTrait
 {
     /**
      * @static
+     * @return DateTimeInterface
+     */
+    public static function now():DateTimeInterface
+    {
+        return new static();
+    }
+
+    /**
+     * @static
      * @param string $dbString Datetime in db format
      * @return DateTimeInterface
      */
@@ -76,7 +85,7 @@ Trait FactoryTrait
      * @param \DateTimeZone $tz
      * @return DateTime
      */
-    public static function createFromFormat($format, $time, $tz = null):?DateTimeInterface
+    public static function createFromFormat($format, $time, DateTimeZone $tz = null)
     {
         if ($tz !== null) {
             $datetime = parent::createFromFormat($format, $time, $tz);
