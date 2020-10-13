@@ -3,16 +3,18 @@
 
 namespace Samius;
 
+use Samius\DateTime\Traits\FactoryTrait;
+use Samius\DateTime\Traits\FormatterTrait;
+use Samius\DateTime\Traits\ModifierTrait;
+
 class DateTimeImmutable extends \DateTimeImmutable implements DateTimeInterface
 {
+    use FormatterTrait;
+    use ModifierTrait;
+    use FactoryTrait;
 
-    public static function fromDatetimeImmutable(\DateTimeImmutable $dateTimeImmutable)
+    public static function now()
     {
-        return self::createFromMutable(\DateTime::createFromImmutable($dateTimeImmutable));
-    }
-    
-    public function getMutable(): DateTime
-    {
-        return DateTime::createFromImmutable($this);
+        return new static();
     }
 }
