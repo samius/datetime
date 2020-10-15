@@ -12,16 +12,16 @@ use Samius\DateTime;
 class Interval
 {
     /**
-     * @return \DateTime|null
+     * @return \DateTimeInterface|null
      */
     private $start;
 
     /**
-     * @return \DateTime|null
+     * @return \DateTimeInterface|null
      */
     private $end;
 
-    public function __construct(\DateTime $start = null, \DateTime $end = null)
+    public function __construct(\DateTimeInterface $start = null, \DateTimeInterface $end = null)
     {
         $this->start = $start;
         $this->end   = $end;
@@ -69,7 +69,7 @@ class Interval
     {
         $start = ($startString === null) ? null : new DateTime($startString);
         $end   = ($endString === null) ? null : new DateTime($endString);
-        
+
         return new self($start, $end);
     }
 
@@ -135,7 +135,7 @@ class Interval
     }
 
     /**
-     * @return \DateTime|null
+     * @return \DateTimeInterface|null
      */
     public function getStart()
     {
@@ -143,7 +143,7 @@ class Interval
     }
 
     /**
-     * @return \DateTime|null
+     * @return \DateTimeInterface|null
      */
     public function getEnd()
     {
@@ -177,7 +177,7 @@ class Interval
      * @param \DateTime $end
      * @return int
      */
-    public static function lengthInDays(\DateTime $start, \DateTime $end)
+    public static function lengthInDays(\DateTimeInterface $start, \DateTimeInterface $end)
     {
         return $start->diff($end)->days;
     }
@@ -187,7 +187,7 @@ class Interval
      * @param \Datetime $end
      * @return int
      */
-    public static function lengthInSeconds(\DateTime $start, \Datetime $end)
+    public static function lengthInSeconds(\DateTimeInterface $start, \DateTimeInterface $end)
     {
         return $end->getTimestamp() - $start->getTimestamp();
     }
@@ -197,7 +197,7 @@ class Interval
      * @param \Datetime $end
      * @return int
      */
-    public static function lengthInMilis(\DateTime $start, \Datetime $end)
+    public static function lengthInMilis(\DateTimeInterface $start, \DateTimeInterface $end)
     {
         return (int) (1000 * self::lengthInSeconds($start, $end));
     }
