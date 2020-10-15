@@ -85,7 +85,7 @@ Trait FactoryTrait
      * @param \DateTimeZone $tz
      * @return DateTime
      */
-    public static function createFromFormat($format, $time, DateTimeZone $tz = null)
+    public static function createFromFormat($format, $time, \DateTimeZone $tz = null)
     {
         if ($tz !== null) {
             $datetime = parent::createFromFormat($format, $time, $tz);
