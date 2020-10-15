@@ -236,7 +236,7 @@ trait ModifierTrait
      * @return string
      * @throws \InvalidArgumentException
      */
-    private function getIntervalString(int $number, string $part):DateTimeInterface
+    private function getIntervalString(int $number, string $part):string
     {
         switch ($part) {
             case self::PART_SECOND:
