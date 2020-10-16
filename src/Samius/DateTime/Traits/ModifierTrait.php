@@ -269,11 +269,14 @@ trait ModifierTrait
     
     public function toMutable():DateTime
     {
-        return DateTime::fromDateTime($this);
+        return DateTime::fromDateTime($this)->setTimezone($this->getTimezone());
     }
 
     public function toImmutable():DateTimeImmutable
     {
-        return DateTimeImmutable::fromDateTime($this);
+        if ($this instanceof DateTimeImmutable) {
+            return $this;
+        }
+        return DateTimeImmutable::fromDateTime($this)->setTimezone($this->getTimezone());
     }
 }
