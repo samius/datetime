@@ -58,7 +58,7 @@ Trait FactoryTrait
 
     public static function fromDatetimeImmutable(\DateTimeImmutable $dateTimeImmutable): DateTimeInterface
     {
-        return new static($dateTime->format(self::DB_FULL_MICRO));
+        return static::fromDateTime($dateTimeImmutable);
     }
 
     /**
@@ -68,7 +68,7 @@ Trait FactoryTrait
      */
     public static function fromTimestamp($timestamp): DateTimeInterface
     {
-        return new static("@$timestamp");
+        return (new static)->setTimestamp($timestamp);
     }
 
     /**
