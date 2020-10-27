@@ -50,13 +50,11 @@ trait ModifierTrait
     {
         if ($actualDay >= $targetDay) {
             $diff = $actualDay - $targetDay;
-            $this->sub(new \DateInterval("P{$diff}D"));
+            return $this->sub(new \DateInterval("P{$diff}D"));
         } else {
             $diff = $targetDay - $actualDay;
-            $this->add(new \DateInterval("P{$diff}D"));
+            return $this->add(new \DateInterval("P{$diff}D"));
         }
-
-        return $this;
     }
 
     /**
@@ -229,6 +227,12 @@ trait ModifierTrait
     public function setLastDayInMonth():DateTimeInterface
     {
         return $this->setDayOfMonth($this->format('t'));
+    }
+    
+    public function setDayOfMonthOrLast(int $dayOfMonth):DateTimeInterface
+    {
+        $dayOfMonth = min($dayOfMonth, $this->getDaysOfCurrentMonth());
+        return $this->setDayOfMonth($dayOfMonth);
     }
 
     /**
