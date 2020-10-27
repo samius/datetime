@@ -212,4 +212,9 @@ trait FormatterTrait
 
         return $this->getDbDate() == $yesterday->getDbDate();
     }
+
+    public function isDst():bool
+    {
+        return $this->format('I') === "1";
+    }
 }

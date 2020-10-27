@@ -1,6 +1,7 @@
 <?php
 namespace Samius\DateTime\Traits;
 
+use DateTimeZone;
 use Samius\DateTime;
 use Samius\DateTimeInterface;
 
@@ -8,7 +9,7 @@ Trait FactoryTrait
 {
     /**
      * @static
-     * @return DateTimeInterface
+     * @return DateTimeInterface|self
      */
     public static function now():DateTimeInterface
     {
@@ -18,7 +19,7 @@ Trait FactoryTrait
     /**
      * @static
      * @param string $dbString Datetime in db format
-     * @return DateTimeInterface
+     * @return DateTimeInterface|self
      */
     public static function fromDb(string $dbString): DateTimeInterface
     {
@@ -48,7 +49,7 @@ Trait FactoryTrait
     /**
      * Used from both mutable and immutable
      * @param \DateTimeInterface $dateTime
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public static function fromDateTime(\DateTimeInterface $dateTime): DateTimeInterface
     {
@@ -57,17 +58,17 @@ Trait FactoryTrait
 
     public static function fromDatetimeImmutable(\DateTimeImmutable $dateTimeImmutable): DateTimeInterface
     {
-        return new static($dateTime->format(self::DB_FULL_MICRO));
+        return static::fromDateTime($dateTimeImmutable);
     }
 
     /**
      * @static
      * @param int $timestamp
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public static function fromTimestamp($timestamp): DateTimeInterface
     {
-        return new static("@$timestamp");
+        return (new static)->setTimestamp($timestamp);
     }
 
     /**
@@ -82,10 +83,10 @@ Trait FactoryTrait
     /**
      * @param string $format
      * @param string $time
-     * @param \DateTimeZone $tz
-     * @return DateTime
+     * @param DateTimeZone|null $tz
+     * @return DateTimeInterface|self|null
      */
-    public static function createFromFormat($format, $time, \DateTimeZone $tz = null)
+    public static function createFromFormat($format, $time, DateTimeZone $tz = null):?DateTimeInterface
     {
         if ($tz !== null) {
             $datetime = parent::createFromFormat($format, $time, $tz);
@@ -101,7 +102,7 @@ Trait FactoryTrait
      * We do not set day, so actual day is set. As september has only 30 days (and today is 31. day), one day is added, so
      * it goes into october.
      * @param $yearmonth
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public static function createFromYearmonth($yearmonth): DateTimeInterface
     {
@@ -109,7 +110,7 @@ Trait FactoryTrait
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function getClone(): DateTimeInterface
     {
