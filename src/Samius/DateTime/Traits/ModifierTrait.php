@@ -11,7 +11,7 @@ trait ModifierTrait
     /**
      * @param int $number
      * @param string $part
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addPart(int $number, string $part):DateTimeInterface
     {
@@ -26,7 +26,7 @@ trait ModifierTrait
     /**
      * @param int $number
      * @param string $part
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function subPart(int $number, string $part):DateTimeInterface
     {
@@ -44,7 +44,7 @@ trait ModifierTrait
      * @param int $actualDay - den, ktery je nastaveny v soucasnosti. Muze predstavovat den v tydnu, mesici, roce...
      * @param int $targetDay - den, ktery chci nastavit (v tydnu, mesici, roce..)
      *
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     private function addOrSubDays($actualDay, $targetDay):DateTimeInterface
     {
@@ -66,7 +66,7 @@ trait ModifierTrait
      * v prestupnem roce je 31.12. den 365.
      *
      * @param int $targetDay
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function setDayOfYear($targetDay):DateTimeInterface
     {
@@ -77,7 +77,7 @@ trait ModifierTrait
     /**
      * Nastavi patricny den v mesici
      * @param int $targetDay
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function setDayOfMonth($targetDay):DateTimeInterface
     {
@@ -88,7 +88,7 @@ trait ModifierTrait
     /**
      * Nastavi patricny den v tydnu (1=monday, 7=sunday)
      * @param int $targetDay
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function setDayOfWeek($targetDay):DateTimeInterface
     {
@@ -98,7 +98,7 @@ trait ModifierTrait
 
     /**
      * Nastavi cas na 00:00:00
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function resetTime():DateTimeInterface
     {
@@ -108,7 +108,7 @@ trait ModifierTrait
 
     /**
      * Vynuluje sekundy
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function resetSeconds():DateTimeInterface
     {
@@ -118,7 +118,7 @@ trait ModifierTrait
 
     /**
      * @param $minuteInDay
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function setMinuteInDay($minuteInDay):DateTimeInterface
     {
@@ -127,7 +127,7 @@ trait ModifierTrait
 
     /**
      * Nastavi cas na 23:59:59
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function maxTime():DateTimeInterface
     {
@@ -139,6 +139,7 @@ trait ModifierTrait
      * svatky.
      *
      * @param int $hours
+     * @return DateTimeInterface|self
      */
     public function addWorkHours($hours):DateTimeInterface
     {
@@ -153,7 +154,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addSeconds($number):DateTimeInterface
     {
@@ -163,7 +164,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addMins($number):DateTimeInterface
     {
@@ -173,7 +174,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addHours($number):DateTimeInterface
     {
@@ -183,7 +184,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addDays($number):DateTimeInterface
     {
@@ -193,7 +194,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addWeeks($number):DateTimeInterface
     {
@@ -203,7 +204,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addMonths($number):DateTimeInterface
     {
@@ -213,7 +214,7 @@ trait ModifierTrait
     /**
      * Shortcut function for addPart
      * @param $number
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function addYears($number):DateTimeInterface
     {
@@ -223,7 +224,7 @@ trait ModifierTrait
     /**
      * Nastavi posledni den v aktualnim mesici
      *
-     * @return DateTime
+     * @return DateTimeInterface|self
      */
     public function setLastDayInMonth():DateTimeInterface
     {
@@ -266,12 +267,18 @@ trait ModifierTrait
 
         return $interval;
     }
-    
+
+    /**
+     * @return DateTime
+     */
     public function toMutable():DateTime
     {
         return DateTime::fromDateTime($this)->setTimezone($this->getTimezone());
     }
 
+    /**
+     * @return DateTimeImmutable
+     */
     public function toImmutable():DateTimeImmutable
     {
         if ($this instanceof DateTimeImmutable) {

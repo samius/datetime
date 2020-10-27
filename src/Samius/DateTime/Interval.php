@@ -160,16 +160,20 @@ class Interval
         }
         return $this->getStart()->diff($this->getEnd())->days;
     }
-
     /**
+     * @param bool $forAdd if interval is used for adding, we have to consider winter to summer time transition (in opossite direction it is ok)
+     * Interval::lengthInSeconds(new DateTime('2020-03-29 01:00:00'), new DateTime('2020-03-29 04:00:00')) = 7200
+     * ((new DateTime('2020-03-29 01:00:00'))->addSeconds(7200)) = 3:00:00
+     * If we use seconds length for adding while transiting from winter to summer time, we need to add 3600s.
+     *
      * @return int
      */
-    public function getLenghtInSeconds()
+    public function getLenghtInSeconds(bool $forAdd=false)
     {
         if ($this->start === null || $this->end === null) {
             return null;
         }
-        return self::lengthInSeconds($this->start, $this->end);
+        return self::lengthInSeconds($this->start, $this->end, $forAdd);
     }
 
     /**
@@ -185,21 +189,37 @@ class Interval
     /**
      * @param \DateTime $start
      * @param \Datetime $end
+     * @param bool $forAdd if interval is used for adding, we have to consider winter to summer time transition (in opossite direction it is ok)
+     * Interval::lengthInSeconds(new DateTime('2020-03-29 01:00:00'), new DateTime('2020-03-29 04:00:00')) = 7200
+     * ((new DateTime('2020-03-29 01:00:00'))->addSeconds(7200)) = 3:00:00
+     * If we use seconds length for adding while transiting from winter to summer time, we need to add 3600s.
      * @return int
      */
-    public static function lengthInSeconds(\DateTimeInterface $start, \DateTimeInterface $end)
+    public static function lengthInSeconds(\DateTimeInterface $start, \DateTimeInterface $end, bool $forAdd=false)
     {
-        return $end->getTimestamp() - $start->getTimestamp();
+        $diffSeconds = $end->getTimestamp() - $start->getTimestamp();
+        if (!$forAdd) {
+            return $diffSeconds;
+        }
+        if ($start->format('I') === "0" && $end->format('I') === "1") {
+            $diffSeconds += 3600;
+        }
+
+        return $diffSeconds;
     }
 
     /**
      * @param \DateTime $start
      * @param \Datetime $end
+     * @param bool $forAdd if interval is used for adding, we have to consider winter to summer time transition (in opossite direction it is ok)
+     * Interval::lengthInSeconds(new DateTime('2020-03-29 01:00:00'), new DateTime('2020-03-29 04:00:00')) = 7200
+     * ((new DateTime('2020-03-29 01:00:00'))->addSeconds(7200)) = 3:00:00
+     * If we use seconds length for adding while transiting from winter to summer time, we need to add 3600s.
      * @return int
      */
-    public static function lengthInMilis(\DateTimeInterface $start, \DateTimeInterface $end)
+    public static function lengthInMilis(\DateTimeInterface $start, \DateTimeInterface $end, bool $forAdd=false)
     {
-        return (int) (1000 * self::lengthInSeconds($start, $end));
+        return (int) (1000 * self::lengthInSeconds($start, $end, $forAdd));
     }
 
     /**
