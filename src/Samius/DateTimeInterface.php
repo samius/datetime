@@ -59,6 +59,10 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function getHumanDate(): string;
 
+    public function getHumanFull(): string;
+
+    public function getHumanTime(): string;
+
     public function getYearmonth(): string;
 
     public static function getPreviousDayNum($dayNum): int;

@@ -128,6 +128,16 @@ trait FormatterTrait
     {
         return $this->format(self::HUMAN_DATE);
     }
+    
+    public function getHumanFull():string
+    {
+        return $this->format(self::HUMAN_FULL);
+    }
+
+    public function getHumanTime(): string
+    {
+        return $this->format(self::HUMAN_TIME);
+    }
 
     /**
      * @return string
