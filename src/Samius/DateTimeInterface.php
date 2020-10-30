@@ -43,6 +43,10 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function getDayOfWeek(): string;
 
+    public function getDayOfMonth(): int;
+
+    public function getDaysOfCurrentMonth():int;
+
     public function isWeekend(): bool;
 
     public function getMonthHumanName($monthNumber = null, $inflect = 1): string;
@@ -54,6 +58,10 @@ interface DateTimeInterface extends \DateTimeInterface
     public function getDbDatetime(): string;
 
     public function getHumanDate(): string;
+
+    public function getHumanFull(): string;
+
+    public function getHumanTime(): string;
 
     public function getYearmonth(): string;
 

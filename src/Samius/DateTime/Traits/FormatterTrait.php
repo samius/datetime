@@ -128,6 +128,16 @@ trait FormatterTrait
     {
         return $this->format(self::HUMAN_DATE);
     }
+    
+    public function getHumanFull():string
+    {
+        return $this->format(self::HUMAN_FULL);
+    }
+
+    public function getHumanTime(): string
+    {
+        return $this->format(self::HUMAN_TIME);
+    }
 
     /**
      * @return string
@@ -216,5 +226,18 @@ trait FormatterTrait
     public function isDst():bool
     {
         return $this->format('I') === "1";
+    }
+
+    /**
+     * @return int numeric value of day in the month
+     */
+    public function getDayOfMonth():int
+    {
+        return (int)$this->format('j');
+    }
+    
+    public function getDaysOfCurrentMonth():int
+    {
+        return (int)$this->format('t');
     }
 }
