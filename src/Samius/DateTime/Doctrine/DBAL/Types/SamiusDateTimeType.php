@@ -3,10 +3,13 @@ namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Samius\DateTime;
+use Samius\DateTime\Timezone;
 
 class SamiusDateTimeType extends Types\DateTimeType
 {
-    public function getName()
+    protected static ?Timezone $timezone = null;
+
+    public function getName():string
     {
         return 'datetime';
     }
@@ -27,5 +30,14 @@ class SamiusDateTimeType extends Types\DateTimeType
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return false;
+    }
+
+    /**
+     * Ready for UTC datetime. in default datetime no fixed timezone is set
+     * @return Timezone|null
+     */
+    protected static function getTimezone(): ?Timezone
+    {
+        return null;
     }
 }

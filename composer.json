@@ -3,9 +3,9 @@
     "name": "samius/datetime",
     "description": "Enhanced version of PHP DateTime class",
     "require": {
-        "php": ">=7.3"
+        "php": ">=7.4"
     },
-    "version": "1.1.10",
+    "version": "1.2",
     "minimum-stability": "stable",
     "autoload": {
         "psr-0": {
