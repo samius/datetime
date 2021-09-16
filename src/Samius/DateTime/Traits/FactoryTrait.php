@@ -53,7 +53,7 @@ Trait FactoryTrait
      */
     public static function fromDateTime(\DateTimeInterface $dateTime): DateTimeInterface
     {
-        return new static($dateTime->format(self::DB_FULL_MICRO));
+        return new static($dateTime->format(self::DB_FULL_MICRO), $dateTime->getTimezone());
     }
 
     public static function fromDatetimeImmutable(\DateTimeImmutable $dateTimeImmutable): DateTimeInterface
