@@ -9,6 +9,11 @@ use Samius\DateTimeImmutable;
  */
 class SamiusUtcDateTimeImmutableType extends SamiusDateTimeImmutableType
 {
+    public function getName(): string
+    {
+        return 'utc_datetime_immutable';
+    }
+
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof DateTimeImmutable) {
