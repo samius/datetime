@@ -12,6 +12,11 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
 {
     protected static ?Timezone $timezone;
 
+    public function getName(): string
+    {
+        return 'utc_datetime';
+    }
+
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof \DateTimeInterface) {
