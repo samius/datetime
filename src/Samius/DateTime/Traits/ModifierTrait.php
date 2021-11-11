@@ -290,4 +290,14 @@ trait ModifierTrait
         }
         return DateTimeImmutable::fromDateTime($this)->setTimezone($this->getTimezone());
     }
+
+    /**
+     * Set UTC timezone and return. If immutable, new instance is returned.
+     * @return $this
+     */
+    public function toUtc():self
+    {
+        return $this->setTimezone(new DateTime\Timezone('UTC'));
+
+    }
 }
