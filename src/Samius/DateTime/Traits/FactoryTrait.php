@@ -21,9 +21,13 @@ Trait FactoryTrait
      * @param string $dbString Datetime in db format
      * @return DateTimeInterface|self
      */
-    public static function fromDb(string $dbString): DateTimeInterface
+    public static function fromDb(string $dbString, ?DateTimeZone $tz = null): DateTimeInterface
     {
-        return static::createFromFormat(self::getDbFormat($dbString), $dbString);
+        if (!$tz) {
+            return static::createFromFormat(self::getDbFormat($dbString), $dbString);
+        }
+        return static::createFromFormat(self::getDbFormat($dbString), $dbString, $tz);
+
     }
 
     /**
