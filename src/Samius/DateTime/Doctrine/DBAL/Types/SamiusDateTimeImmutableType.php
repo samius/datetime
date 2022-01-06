@@ -18,7 +18,7 @@ class SamiusDateTimeImmutableType extends DateTimeImmutableType
             return $value;
         }
 
-        $dateTime = new DateTimeImmutable($value, self::getTimezone());
+        $dateTime = new DateTimeImmutable($value, static::getTimezone());
 //        $dateTime = DateTimeImmutable::createFromFormat($platform->getDateTimeFormatString(), $value, self::getTimezone());
 
         if (! $dateTime) {
