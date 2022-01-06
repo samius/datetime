@@ -20,7 +20,7 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof \DateTimeInterface) {
-            $value->setTimezone(self::getTimezone());
+            $value->setTimezone(static::getTimezone());
         }
         return parent::convertToDatabaseValue($value, $platform);
     }
@@ -34,7 +34,7 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
         $converted = DateTime::createFromFormat(
             $platform->getDateTimeFormatString(),
             $value,
-            self::getTimezone()
+            static::getTimezone()
         );
 
         if (!$converted) {
