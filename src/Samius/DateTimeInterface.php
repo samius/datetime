@@ -93,8 +93,6 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function setMinuteInDay($minuteInDay): DateTimeInterface;
 
-    public function setTime($hour, $minute, $second = 0, $microseconds = 0);
-
     public function maxTime(): DateTimeInterface;
 
     public function addWorkHours($hours): DateTimeInterface;
