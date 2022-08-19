@@ -14,6 +14,9 @@ class SamiusDateTimeType extends Types\DateTimeType
         return 'datetime';
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {

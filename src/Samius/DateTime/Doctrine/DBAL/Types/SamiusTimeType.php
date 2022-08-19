@@ -11,6 +11,9 @@ class SamiusTimeType extends Types\TimeType
         return 'time';
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {
