@@ -14,6 +14,9 @@ class SamiusUtcDateTimeImmutableType extends SamiusDateTimeImmutableType
         return 'utc_datetime_immutable';
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof DateTimeImmutable) {

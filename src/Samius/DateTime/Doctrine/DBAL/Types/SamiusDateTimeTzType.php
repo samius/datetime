@@ -11,6 +11,9 @@ class SamiusDateTimeTzType extends Types\DateTimeTzType
         return 'datetimetz';
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {

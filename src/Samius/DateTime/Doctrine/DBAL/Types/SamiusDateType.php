@@ -11,6 +11,9 @@ class SamiusDateType extends Types\DateType
         return 'date';
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {
