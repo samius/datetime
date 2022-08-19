@@ -17,6 +17,9 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
         return 'utc_datetime';
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof \DateTimeInterface) {
@@ -25,6 +28,9 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
         return parent::convertToDatabaseValue($value, $platform);
     }
 
+    /**
+     * @return mixed
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if (null === $value || $value instanceof \DateTime) {

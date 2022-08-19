@@ -11,6 +11,7 @@ class SamiusDateTimeImmutableType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     * @return mixed
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
