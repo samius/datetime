@@ -4,6 +4,8 @@ use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Samius\DateTime;
 use Samius\DateTime\Timezone;
+use Samius\DateTimeImmutable;
+use Samius\DateTimeInterface;
 
 class SamiusDateTimeType extends Types\DateTimeType
 {
@@ -19,8 +21,8 @@ class SamiusDateTimeType extends Types\DateTimeType
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if ($value === null) {
-            return null;
+        if ($value === null || $value instanceof DateTime) {
+            return $value;
         }
 
         $val = DateTime::createFromFormat($platform->getDateTimeFormatString(), $value);
@@ -30,6 +32,9 @@ class SamiusDateTimeType extends Types\DateTimeType
         return $val;
     }
 
+    /**
+     * @return bool
+     */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return false;

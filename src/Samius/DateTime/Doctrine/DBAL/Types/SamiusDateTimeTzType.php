@@ -27,6 +27,9 @@ class SamiusDateTimeTzType extends Types\DateTimeTzType
         return $val;
     }
 
+    /**
+     * @return bool
+     */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return false;
