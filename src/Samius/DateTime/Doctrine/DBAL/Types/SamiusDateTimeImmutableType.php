@@ -1,6 +1,7 @@
 <?php
 namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
+use Samius\DateTime;
 use Samius\DateTime\Timezone;
 use Samius\DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -18,6 +19,10 @@ class SamiusDateTimeImmutableType extends DateTimeImmutableType
         if ($value === null || $value instanceof DateTimeImmutable) {
             return $value;
         }
+        if ($value instanceof \DateTimeInterface) {
+            return DateTimeImmutable::fromDateTime($value);
+        }
+        
 
         $dateTime = new DateTimeImmutable($value, static::getTimezone());
 //        $dateTime = DateTimeImmutable::createFromFormat($platform->getDateTimeFormatString(), $value, self::getTimezone());

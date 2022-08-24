@@ -24,6 +24,9 @@ class SamiusDateTimeType extends Types\DateTimeType
         if ($value === null || $value instanceof DateTime) {
             return $value;
         }
+        if ($value instanceof \DateTimeInterface) {
+            return DateTime::fromDateTime($value);
+        }
 
         $val = DateTime::createFromFormat($platform->getDateTimeFormatString(), $value);
         if (!$val) {
