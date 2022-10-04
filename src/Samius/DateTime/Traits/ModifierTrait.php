@@ -2,39 +2,37 @@
 
 namespace Samius\DateTime\Traits;
 
+use DateInterval;
+use Exception;
+use InvalidArgumentException;
 use Samius\DateTime;
 use Samius\DateTimeImmutable;
-use Samius\DateTimeInterface;
 
 trait ModifierTrait
 {
     /**
-     * @param int $number
-     * @param string $part
-     * @return DateTimeInterface|self
+     * @throws Exception
      */
-    public function addPart(int $number, string $part):DateTimeInterface
+    public function addPart(int $number, string $part): static
     {
         if ($number < 0) {
             return $this->subPart(abs($number), $part);
         }
-        $interval = new \DateInterval($this->getIntervalString($number, $part));
+        $interval = new DateInterval($this->getIntervalString($number, $part));
 
         return $this->add($interval);
     }
 
     /**
-     * @param int $number
-     * @param string $part
-     * @return DateTimeInterface|self
+     * @throws Exception
      */
-    public function subPart(int $number, string $part):DateTimeInterface
+    public function subPart(int $number, string $part): static
     {
         if ($number < 0) {
             return $this->addPart(abs($number), $part);
         }
 
-        $interval = new \DateInterval($this->getIntervalString($number, $part));
+        $interval = new DateInterval($this->getIntervalString($number, $part));
 
         return $this->sub($interval);
     }
@@ -44,16 +42,15 @@ trait ModifierTrait
      * @param int $actualDay - den, ktery je nastaveny v soucasnosti. Muze predstavovat den v tydnu, mesici, roce...
      * @param int $targetDay - den, ktery chci nastavit (v tydnu, mesici, roce..)
      *
-     * @return DateTimeInterface|self
      */
-    private function addOrSubDays($actualDay, $targetDay):DateTimeInterface
+    private function addOrSubDays(int $actualDay, int $targetDay): static
     {
         if ($actualDay >= $targetDay) {
             $diff = $actualDay - $targetDay;
-            return $this->sub(new \DateInterval("P{$diff}D"));
+            return $this->sub(new DateInterval("P{$diff}D"));
         } else {
             $diff = $targetDay - $actualDay;
-            return $this->add(new \DateInterval("P{$diff}D"));
+            return $this->add(new DateInterval("P{$diff}D"));
         }
     }
 
@@ -62,11 +59,8 @@ trait ModifierTrait
      * Pokud tedy chci nastavit 1.1., nastavim den 0.
      * V neprestupnem roce je 31.12. den 364,
      * v prestupnem roce je 31.12. den 365.
-     *
-     * @param int $targetDay
-     * @return DateTimeInterface|self
      */
-    public function setDayOfYear($targetDay):DateTimeInterface
+    public function setDayOfYear(int $targetDay): static
     {
         $actualDay = (int)$this->format('z');
         return $this->addOrSubDays($actualDay, $targetDay);
@@ -74,10 +68,8 @@ trait ModifierTrait
 
     /**
      * Nastavi patricny den v mesici
-     * @param int $targetDay
-     * @return DateTimeInterface|self
      */
-    public function setDayOfMonth($targetDay):DateTimeInterface
+    public function setDayOfMonth(int $targetDay): static
     {
         $actualDay = (int)$this->format('j');
         return $this->addOrSubDays($actualDay, $targetDay);
@@ -85,10 +77,8 @@ trait ModifierTrait
 
     /**
      * Nastavi patricny den v tydnu (1=monday, 7=sunday)
-     * @param int $targetDay
-     * @return DateTimeInterface|self
      */
-    public function setDayOfWeek($targetDay):DateTimeInterface
+    public function setDayOfWeek(int $targetDay): static
     {
         $actualDay = (int)$this->format('N');
         return $this->addOrSubDays($actualDay, $targetDay);
@@ -96,9 +86,8 @@ trait ModifierTrait
 
     /**
      * Nastavi cas na 00:00:00
-     * @return DateTimeInterface|self
      */
-    public function resetTime():DateTimeInterface
+    public function resetTime(): static
     {
         return $this->setTime(0, 0, 0);
     }
@@ -106,28 +95,22 @@ trait ModifierTrait
 
     /**
      * Vynuluje sekundy
-     * @return DateTimeInterface|self
      */
-    public function resetSeconds():DateTimeInterface
+    public function resetSeconds(): static
     {
         $seconds = $this->format('s');
         return $this->subPart($seconds, self::PART_SECOND);
     }
 
-    /**
-     * @param $minuteInDay
-     * @return DateTimeInterface|self
-     */
-    public function setMinuteInDay($minuteInDay):DateTimeInterface
+    public function setMinuteInDay(int $minuteInDay): static
     {
         return $this->resetTime()->addPart($minuteInDay, self::PART_MINUTE);
     }
 
     /**
      * Nastavi cas na 23:59:59
-     * @return DateTimeInterface|self
      */
-    public function maxTime():DateTimeInterface
+    public function maxTime(): static
     {
         return $this->setTime(23, 59, 59);
     }
@@ -135,11 +118,8 @@ trait ModifierTrait
     /**
      * Prida k datu dany pocet hodin, ktere spadaji do pracovniho dne. Preskakuje tedy vikendy. Nebere v uvahu statni
      * svatky.
-     *
-     * @param int $hours
-     * @return DateTimeInterface|self
      */
-    public function addWorkHours($hours):DateTimeInterface
+    public function addWorkHours(int $hours): static
     {
         while ($hours > 0) {
             $this->addPart(1, self::PART_HOUR);
@@ -149,141 +129,110 @@ trait ModifierTrait
         }
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addSeconds($number):DateTimeInterface
+    public function addSeconds(int $number): static
     {
         return $this->addPart($number, self::PART_SECOND);
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addMins($number):DateTimeInterface
+    public function addMins(int $number): static
     {
         return $this->addPart($number, self::PART_MINUTE);
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addHours($number):DateTimeInterface
+    public function addHours(int $number): static
     {
         return $this->addPart($number, self::PART_HOUR);
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addDays($number):DateTimeInterface
+    public function addDays(int $number): static
     {
         return $this->addPart($number, self::PART_DAY);
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addWeeks($number):DateTimeInterface
+    public function addWeeks(int $number): static
     {
         return $this->addPart($number, self::PART_WEEK);
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addMonths($number):DateTimeInterface
+    public function addMonths(int $number): static
     {
         return $this->addPart($number, self::PART_MONTH);
     }
 
-    /**
-     * Shortcut function for addPart
-     * @param $number
-     * @return DateTimeInterface|self
-     */
-    public function addYears($number):DateTimeInterface
+    public function addYears(int $number): static
     {
         return $this->addPart($number, self::PART_YEAR);
     }
 
+    public function subSeconds(int $number): static
+    {
+        return $this->subPart($number, self::PART_SECOND);
+    }
+
+    public function subMins(int $number): static
+    {
+        return $this->subPart($number, self::PART_MINUTE);
+    }
+
+    public function subHours(int $number): static
+    {
+        return $this->subPart($number, self::PART_HOUR);
+    }
+
+    public function subDays(int $number): static
+    {
+        return $this->subPart($number, self::PART_DAY);
+    }
+
+    public function subWeeks(int $number): static
+    {
+        return $this->subPart($number, self::PART_WEEK);
+    }
+
+    public function subMonths(int $number): static
+    {
+        return $this->subPart($number, self::PART_MONTH);
+    }
+
+    public function subYears(int $number): static
+    {
+        return $this->subPart($number, self::PART_YEAR);
+    }
+
     /**
      * Nastavi posledni den v aktualnim mesici
-     *
-     * @return DateTimeInterface|self
      */
-    public function setLastDayInMonth():DateTimeInterface
+    public function setLastDayInMonth(): static
     {
         return $this->setDayOfMonth($this->format('t'));
     }
-    
-    public function setDayOfMonthOrLast(int $dayOfMonth):DateTimeInterface
+
+    public function setDayOfMonthOrLast(int $dayOfMonth): static
     {
         $dayOfMonth = min($dayOfMonth, $this->getDaysOfCurrentMonth());
         return $this->setDayOfMonth($dayOfMonth);
     }
 
-    /**
-     * @param int $number
-     * @param string $part "second", "minute" ...
-     * @return string
-     * @throws \InvalidArgumentException
-     */
-    private function getIntervalString(int $number, string $part):string
+    private function getIntervalString(int $number, string $part): string
     {
-        switch ($part) {
-            case self::PART_SECOND:
-                $interval = "PT{$number}S";
-                break;
-            case self::PART_MINUTE:
-                $interval = "PT{$number}M";
-                break;
-            case self::PART_HOUR:
-                $interval = "PT{$number}H";
-                break;
-            case self::PART_DAY:
-                $interval = "P{$number}D";
-                break;
-            case self::PART_WEEK:
-                $interval = "P" . (string)($number * 7) . "D";
-                break;
-            case self::PART_MONTH:
-                $interval = "P{$number}M";
-                break;
-            case self::PART_YEAR:
-                $interval = "P{$number}Y";
-                break;
-            default:
-                throw new \InvalidArgumentException('Chybna date part ' . $part);
-        }
-
-        return $interval;
+        return match ($part) {
+            self::PART_SECOND => "PT{$number}S",
+            self::PART_MINUTE => "PT{$number}M",
+            self::PART_HOUR => "PT{$number}H",
+            self::PART_DAY => "P{$number}D",
+            self::PART_WEEK => "P" . (string)($number * 7) . "D",
+            self::PART_MONTH => "P{$number}M",
+            self::PART_YEAR => "P{$number}Y",
+            default => throw new InvalidArgumentException('Invalid date part ' . $part),
+        };
     }
 
-    /**
-     * @return DateTime
-     */
-    public function toMutable():DateTime
+    public function toMutable(): DateTime
     {
         return DateTime::fromDateTime($this)->setTimezone($this->getTimezone());
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
-    public function toImmutable():DateTimeImmutable
+    public function toImmutable(): DateTimeImmutable
     {
         if ($this instanceof DateTimeImmutable) {
             return $this;
@@ -293,9 +242,8 @@ trait ModifierTrait
 
     /**
      * Set UTC timezone and return. If immutable, new instance is returned.
-     * @return $this
      */
-    public function toUtc():self
+    public function toUtc(): static
     {
         return $this->setTimezone(new DateTime\Timezone('UTC'));
 

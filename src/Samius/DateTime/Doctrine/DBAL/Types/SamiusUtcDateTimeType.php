@@ -2,6 +2,7 @@
 namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
 use Samius\DateTime;
 use Samius\DateTime\Timezone;
 
@@ -17,10 +18,7 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
         return 'utc_datetime';
     }
 
-    /**
-     * @return mixed
-     */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value instanceof \DateTimeInterface) {
             $value->setTimezone(static::getTimezone());
@@ -28,12 +26,9 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
         return parent::convertToDatabaseValue($value, $platform);
     }
 
-    /**
-     * @return mixed
-     */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform) :?DateTime
     {
-        if (null === $value || $value instanceof \DateTime) {
+        if (null === $value || $value instanceof DateTime) {
             return $value;
         }
 
@@ -44,7 +39,7 @@ class SamiusUtcDateTimeType extends SamiusDateTimeType
         );
 
         if (!$converted) {
-            throw Types\ConversionException::conversionFailedFormat(
+            throw ConversionException::conversionFailedFormat(
                 $value,
                 $this->getName(),
                 $platform->getDateTimeFormatString()

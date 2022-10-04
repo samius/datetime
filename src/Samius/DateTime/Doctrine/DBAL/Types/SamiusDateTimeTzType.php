@@ -2,19 +2,17 @@
 namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\DateTimeTzType;
 use Samius\DateTime;
 
-class SamiusDateTimeTzType extends Types\DateTimeTzType
+class SamiusDateTimeTzType extends DateTimeTzType
 {
-    public function getName()
+    public function getName(): string
     {
         return 'datetimetz';
     }
 
-    /**
-     * @return mixed
-     */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
     {
         if ($value === null) {
             return null;
@@ -27,10 +25,7 @@ class SamiusDateTimeTzType extends Types\DateTimeTzType
         return $val;
     }
 
-    /**
-     * @return bool
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return false;
     }

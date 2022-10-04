@@ -23,21 +23,21 @@ interface DateTimeInterface extends \DateTimeInterface
         PART_YEAR = 'year';
 
 
-    public static function now(): DateTimeInterface;
+    public static function now(): static;
 
-    public static function fromDb(string $dbString): DateTimeInterface;
+    public static function fromDb(string $dbString): static;
 
-    public static function fromDateTime(\DateTimeInterface $dateTime): DateTimeInterface;
+    public static function fromDateTime(\DateTimeInterface $dateTime): static;
 
-    public static function fromDatetimeImmutable(\DateTimeImmutable $dateTimeImmutable): DateTimeInterface;
+    public static function fromDatetimeImmutable(\DateTimeImmutable $dateTimeImmutable): static;
 
-    public static function fromTimestamp($timestamp): DateTimeInterface;
+    public static function fromTimestamp(int $timestamp): static;
 
-    public static function createNullDate(): DateTimeInterface;
+    public static function createNullDate(): static;
 
-    public static function createFromYearmonth($yearmonth): DateTimeInterface;
+    public static function createFromYearmonth(string $yearmonth): static;
 
-    public function getClone(): DateTimeInterface;
+    public function getClone(): static;
 
     public function getMinuteInDay(): int;
 
@@ -49,7 +49,7 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function isWeekend(): bool;
 
-    public function getMonthHumanName($monthNumber = null, $inflect = 1): string;
+    public function getMonthHumanName(?int $monthNumber = null, int $inflect = 1): string;
 
     public function __toString(): string;
 
@@ -65,9 +65,9 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function getYearmonth(): string;
 
-    public static function getPreviousDayNum($dayNum): int;
+    public static function getPreviousDayNum(int $dayNum): int;
 
-    public static function isYearmonth($yearmonth): bool;
+    public static function isYearmonth(string $yearmonth): bool;
 
     public function getMilis(): int;
 
@@ -77,41 +77,55 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public function isYesterday(): bool;
 
-    public function addPart(int $number, string $part): DateTimeInterface;
+    public function addPart(int $number, string $part): static;
 
-    public function subPart(int $number, string $part): DateTimeInterface;
+    public function subPart(int $number, string $part): static;
 
-    public function setDayOfYear($targetDay): DateTimeInterface;
+    public function setDayOfYear(int $targetDay): static;
 
-    public function setDayOfMonth($targetDay): DateTimeInterface;
+    public function setDayOfMonth(int $targetDay): static;
 
-    public function setDayOfWeek($targetDay): DateTimeInterface;
+    public function setDayOfWeek(int $targetDay): static;
 
-    public function resetTime(): DateTimeInterface;
+    public function resetTime(): static;
 
-    public function resetSeconds(): DateTimeInterface;
+    public function resetSeconds(): static;
 
-    public function setMinuteInDay($minuteInDay): DateTimeInterface;
+    public function setMinuteInDay(int $minuteInDay): static;
 
-    public function maxTime(): DateTimeInterface;
+    public function maxTime(): static;
 
-    public function addWorkHours($hours): DateTimeInterface;
+    public function addWorkHours(int $hours): static;
 
-    public function addSeconds($number): DateTimeInterface;
+    public function addSeconds(int $number): static;
 
-    public function addMins($number): DateTimeInterface;
+    public function addMins(int $number): static;
 
-    public function addHours($number): DateTimeInterface;
+    public function addHours(int $number): static;
 
-    public function addDays($number): DateTimeInterface;
+    public function addDays(int $number): static;
 
-    public function addWeeks($number): DateTimeInterface;
+    public function addWeeks(int $number): static;
 
-    public function addMonths($number): DateTimeInterface;
+    public function addMonths(int $number): static;
 
-    public function addYears($number): DateTimeInterface;
+    public function addYears(int $number): static;
 
-    public function setLastDayInMonth(): DateTimeInterface;
+    public function subSeconds(int $number): static;
+
+    public function subMins(int $number): static;
+
+    public function subHours(int $number): static;
+
+    public function subDays(int $number): static;
+
+    public function subWeeks(int $number): static;
+
+    public function subMonths(int $number): static;
+
+    public function subYears(int $number): static;
+
+    public function setLastDayInMonth(): static;
 
     public function toMutable(): DateTime;
 
