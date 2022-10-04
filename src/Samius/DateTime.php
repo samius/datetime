@@ -1,6 +1,7 @@
 <?php
 namespace Samius;
 
+use DateTimeZone;
 use Samius\DateTime\Traits\FactoryTrait;
 use Samius\DateTime\Traits\FormatterTrait;
 use Samius\DateTime\Traits\ModifierTrait;
@@ -14,12 +15,9 @@ class DateTime extends \DateTime implements DateTimeInterface
     use FormatterTrait;
     use FactoryTrait;
 
-    /**
-     * @var DateTime
-     */
-    private static $now;
+    private static DateTime $now;
 
-    public function  __construct($time = null, \DateTimeZone $tz = null)
+    public function  __construct(string $time = 'now', DateTimeZone $tz = null)
     {
         if (!$time && self::$now) {
             $time = self::$now->format(self::DB_FULL);
@@ -34,10 +32,7 @@ class DateTime extends \DateTime implements DateTimeInterface
     }
 
 
-    /**
-     * @param DateTime|null $now
-     */
-    public static function setNow(self $now = null)
+    public static function setNow(self $now = null):void
     {
         if ($now) {
             self::$now = clone($now);
@@ -46,7 +41,7 @@ class DateTime extends \DateTime implements DateTimeInterface
         }
     }
 
-    public static function hasTestNow():bool
+    public static function hasTestNow(): bool
     {
         return self::$now !== null;
     }

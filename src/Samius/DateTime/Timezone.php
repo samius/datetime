@@ -3,8 +3,8 @@ namespace Samius\DateTime;
 
 class Timezone extends \DateTimeZone
 {
-    public static function getTimezonesForSelect()
-      {
+    public static function getTimezonesForSelect(): array
+    {
           static $regions = array(
               \DateTimeZone::AFRICA,
               \DateTimeZone::AMERICA,
@@ -48,4 +48,3 @@ class Timezone extends \DateTimeZone
 
 
 }
- 

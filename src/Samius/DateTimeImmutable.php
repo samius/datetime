@@ -3,6 +3,7 @@
 
 namespace Samius;
 
+use DateTimeZone;
 use Samius\DateTime\Traits\FactoryTrait;
 use Samius\DateTime\Traits\FormatterTrait;
 use Samius\DateTime\Traits\ModifierTrait;
@@ -13,7 +14,7 @@ class DateTimeImmutable extends \DateTimeImmutable implements DateTimeInterface
     use ModifierTrait;
     use FactoryTrait;
 
-    public function __construct($time = null, $timezone = NULL)
+    public function __construct(string $time = 'now', ?DateTimeZone $timezone = null)
        {
            if (!$time && DateTime::hasTestNow()) {
                $mutable = DateTime::now();

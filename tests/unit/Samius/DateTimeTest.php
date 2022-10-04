@@ -18,4 +18,16 @@ class DateTimeTest extends \Codeception\Test\Unit
         $this->assertEquals(29, $date->setDayOfMonthOrLast(29)->getDayOfMonth());
         $this->assertEquals(28, $date->setDayOfMonthOrLast(28)->getDayOfMonth());
     }
+    
+    public function testStatic()
+    {
+        $mutable = Datetime::now();
+        $immutable = DateTimeImmutable::now();
+        $this->assertInstanceOf(DateTimeImmutable::class, $immutable);
+        $this->assertInstanceOf(DateTimeImmutable::class, $immutable->addSeconds(1));
+        $this->assertInstanceOf(DateTime::class, $mutable);
+        $this->assertInstanceOf(DateTime::class, $mutable->addSeconds(1));
+
+
+    }
 }

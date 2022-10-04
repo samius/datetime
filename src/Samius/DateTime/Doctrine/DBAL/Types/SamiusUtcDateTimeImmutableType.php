@@ -14,10 +14,7 @@ class SamiusUtcDateTimeImmutableType extends SamiusDateTimeImmutableType
         return 'utc_datetime_immutable';
     }
 
-    /**
-     * @return mixed
-     */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?DateTimeImmutable
     {
         if ($value instanceof DateTimeImmutable) {
             $value = $value->setTimezone(static::getTimezone());
@@ -25,9 +22,6 @@ class SamiusUtcDateTimeImmutableType extends SamiusDateTimeImmutableType
         return parent::convertToDatabaseValue($value, $platform);
     }
 
-    /**
-     * @return bool
-     */
     protected static function getTimezone(): ?Timezone
     {
         return self::$timezone ?: self::$timezone = new Timezone('UTC');

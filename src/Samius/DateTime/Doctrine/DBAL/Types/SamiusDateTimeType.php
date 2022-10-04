@@ -2,12 +2,12 @@
 namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
+use Doctrine\DBAL\Types\DateTimeType;
 use Samius\DateTime;
 use Samius\DateTime\Timezone;
-use Samius\DateTimeImmutable;
-use Samius\DateTimeInterface;
 
-class SamiusDateTimeType extends Types\DateTimeType
+class SamiusDateTimeType extends DateTimeType
 {
     protected static ?Timezone $timezone = null;
 
@@ -16,10 +16,7 @@ class SamiusDateTimeType extends Types\DateTimeType
         return 'datetime';
     }
 
-    /**
-     * @return mixed
-     */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
     {
         if ($value === null || $value instanceof DateTime) {
             return $value;
@@ -30,22 +27,18 @@ class SamiusDateTimeType extends Types\DateTimeType
 
         $val = DateTime::createFromFormat($platform->getDateTimeFormatString(), $value);
         if (!$val) {
-            throw \Doctrine\DBAL\Types\ConversionException::conversionFailed($value, $this->getName());
+            throw ConversionException::conversionFailed($value, $this->getName());
         }
         return $val;
     }
 
-    /**
-     * @return bool
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return false;
     }
 
     /**
      * Ready for UTC datetime. in default datetime no fixed timezone is set
-     * @return Timezone|null
      */
     protected static function getTimezone(): ?Timezone
     {

@@ -2,19 +2,18 @@
 namespace Samius\DateTime\Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
+use Doctrine\DBAL\Types\DateType;
 use Samius\DateTime;
 
-class SamiusDateType extends Types\DateType
+class SamiusDateType extends DateType
 {
-    public function getName()
+    public function getName(): string
     {
         return 'date';
     }
 
-    /**
-     * @return mixed
-     */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
     {
         if ($value === null) {
             return null;
@@ -22,15 +21,12 @@ class SamiusDateType extends Types\DateType
 
         $val = DateTime::createFromFormat('!'.$platform->getDateFormatString(), $value);
         if (!$val) {
-            throw Types\ConversionException::conversionFailed($value, $this->getName());
+            throw ConversionException::conversionFailed($value, $this->getName());
         }
         return $val;
     }
 
-    /**
-     * @return bool
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return false;
     }
