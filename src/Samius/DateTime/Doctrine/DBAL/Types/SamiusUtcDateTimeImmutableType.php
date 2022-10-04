@@ -14,7 +14,7 @@ class SamiusUtcDateTimeImmutableType extends SamiusDateTimeImmutableType
         return 'utc_datetime_immutable';
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?DateTimeImmutable
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value instanceof DateTimeImmutable) {
             $value = $value->setTimezone(static::getTimezone());
