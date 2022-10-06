@@ -17,11 +17,15 @@ class DateTime extends \DateTime implements DateTimeInterface
 
     private static ?DateTime $now = null;
 
-    public function  __construct(string $time = 'now', DateTimeZone $tz = null)
+    public function  __construct(string $time = '', DateTimeZone $tz = null)
     {
         if (!$time && self::$now) {
             $time = self::$now->format(self::DB_FULL);
             $tz = self::$now->getTimezone();
+        }
+
+        if (!$time) {
+            $time = 'now';
         }
 
         if ($tz) {
