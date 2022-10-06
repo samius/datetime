@@ -10,7 +10,7 @@ trait FactoryTrait
 {
     public static function now(): static
     {
-        return new static();
+        return new static('');
     }
 
     public static function fromDb(string $dbString, ?DateTimeZone $tz = null): static
