@@ -60,7 +60,7 @@ trait FactoryTrait
         return static::fromTimestamp(0);
     }
 
-    public static function createFromFormat(string $format, string $time, ?DateTimeZone $tz = null): ?static
+    public static function createFromFormat(string $format, string $time, ?DateTimeZone $tz = null): static|false
     {
         if ($tz !== null) {
             $datetime = \DateTime::createFromFormat($format, $time, $tz);
@@ -68,7 +68,7 @@ trait FactoryTrait
             $datetime = \DateTime::createFromFormat($format, $time);
         }
 
-        return $datetime ? static::fromDateTime($datetime) : null;
+        return $datetime ? static::fromDateTime($datetime) : false;
     }
 
     /**
