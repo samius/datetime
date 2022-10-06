@@ -15,7 +15,7 @@ class DateTime extends \DateTime implements DateTimeInterface
     use FormatterTrait;
     use FactoryTrait;
 
-    private static DateTime $now = null;
+    private static ?DateTime $now = null;
 
     public function  __construct(string $time = 'now', DateTimeZone $tz = null)
     {
