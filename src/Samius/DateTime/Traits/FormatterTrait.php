@@ -139,7 +139,7 @@ trait FormatterTrait
     public function isToday(): bool
     {
         $timezone = $this->getTimezone();
-        $now = new static(null, $timezone);
+        $now = new static('', $timezone);
 
         return $this->getDbDate() == $now->getDbDate();
     }
@@ -148,7 +148,7 @@ trait FormatterTrait
     public function isYesterday(): bool
     {
         $timezone = $this->getTimezone();
-        $yesterday = new static(null, $timezone);
+        $yesterday = new static('', $timezone);
         $yesterday->subPart(1, self::PART_DAY);
 
         return $this->getDbDate() == $yesterday->getDbDate();
