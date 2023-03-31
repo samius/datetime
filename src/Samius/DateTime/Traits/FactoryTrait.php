@@ -13,7 +13,7 @@ trait FactoryTrait
         return new static('');
     }
 
-    public static function fromDb(string $dbString, ?DateTimeZone $tz = null): static
+    public static function fromDb(string $dbString, ?DateTimeZone $tz = null): static|false
     {
         if (!$tz) {
             return static::createFromFormat(self::getDbFormat($dbString), $dbString);
