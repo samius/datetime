@@ -76,7 +76,7 @@ trait FactoryTrait
      * We do not set day, so actual day is set. As september has only 30 days (and today is 31. day), one day is added, so
      * it goes into october.
      */
-    public static function createFromYearmonth(string $yearmonth): static
+    public static function createFromYearmonth(string $yearmonth): static|false
     {
         return static::createFromFormat('!' . self::YEARMONTH, $yearmonth);
     }

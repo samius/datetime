@@ -25,7 +25,7 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public static function now(): static;
 
-    public static function fromDb(string $dbString): static;
+    public static function fromDb(string $dbString): static|false;
 
     public static function fromDateTime(\DateTimeInterface $dateTime): static;
 
@@ -35,7 +35,7 @@ interface DateTimeInterface extends \DateTimeInterface
 
     public static function createNullDate(): static;
 
-    public static function createFromYearmonth(string $yearmonth): static;
+    public static function createFromYearmonth(string $yearmonth): static|false;
 
     public function getClone(): static;
 
