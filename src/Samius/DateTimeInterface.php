@@ -12,6 +12,7 @@ interface DateTimeInterface extends \DateTimeInterface
         DB_DATE = 'Y-m-d',// 1983-02-25
         DB_FULL = 'Y-m-d H:i:s', // 1983-02-25 12:45:42
         DB_FULL_MICRO = 'Y-m-d H:i:s.u',//1983-02-25 12:45:42.321
+        JAVASCRIPT_WITHOUT_TIMEZONE = 'Y-m-d\TH:i:s',//1983-02-25T12:45:42
         YEARMONTH = 'Ym',//198302
 
         PART_SECOND = 'second',
