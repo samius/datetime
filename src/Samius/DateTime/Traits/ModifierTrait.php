@@ -83,6 +83,15 @@ trait ModifierTrait
         $actualDay = (int)$this->format('N');
         return $this->addOrSubDays($actualDay, $targetDay);
     }
+    
+    public function moveForwardToDayOfWeek(int $targetDay): static
+    {
+        $actualDay = (int) $this->getDayOfWeek();
+        if ($actualDay > $targetDay) {
+            return $this->addDays(7 - $actualDay + $targetDay);
+        }
+        return $this->addDays($targetDay - $actualDay);
+    }
 
     /**
      * Nastavi cas na 00:00:00
