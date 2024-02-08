@@ -111,6 +111,13 @@ trait ModifierTrait
         return $this->subPart($seconds, self::PART_SECOND);
     }
 
+    public function resetMinutes(): static
+    {
+        $minutes = (int) $this->format('i');
+        return $this->subMins($minutes);
+    }
+
+
     public function setMinuteInDay(int $minuteInDay): static
     {
         return $this->resetTime()->addPart($minuteInDay, self::PART_MINUTE);
